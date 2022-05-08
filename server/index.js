@@ -12,16 +12,16 @@ app.use(bodyParser.json({limit: "30mb", extended: true})); // limiting image siz
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 app.use(cors());
 
-// routes must go after app.use(corse());
+// routes must go after app.use(cors());
 app.use('/posts', postRoutes);
 
 //set up connection to db www.mongodb.com/cloud/atlas
-const CONNECTION_URL = "";
+const CONNECTION_URL = "mongodb+srv://<user>:<pw>@memories.h9zla.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const PORT = process.env.PORT || 5000; // use Heroku's port or port 5000
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true}) // params to prevent console warnings
   .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
-  .catch((error) => console.log("ERROR", error.message));
+  .catch((error) => console.log("ERROR - did not connect to server", error.message));
 
 // mongoose.set('useFindAndModify', false); // makes sure we don't get any console warnings - DEPRECATED. no longer necesary. 
 // https://stackoverflow.com/questions/69030963/error-usefindandmodify-is-an-invalid-option
